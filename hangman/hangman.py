@@ -11,16 +11,17 @@ class Hangman:
         self.status = STATUS_ONGOING
         self.word = word
         self.masked_word = "_" * len(self.word)
+        self.word2 = word
 
     def guess(self, char):
-        result = self.word.find(char)
+        result = self.word2.find(char)
         self.remaining_guesses -= 1
         if result == -1:
             self.result_check()
             return 
+        self.word2 = self.word2[0:result] + " " + self.word2[result + 1:]
+        print(self.word2)
         temp = self.masked_word[0:result] + char + self.masked_word[result + 1:]
-        print(f'result {result}')
-        print(f'result + 1 {self.masked_word[result + 1:]}')
         self.masked_word = temp
         self.result_check()
 
@@ -37,10 +38,10 @@ class Hangman:
     def get_status(self):
         return self.status
 
-game = Hangman('for')
-game.guess('f')
-game.guess('o')
-game.guess('r')
+# game = Hangman('foo')
+# game.guess('f')
+# game.guess('o')
+# game.guess('o')
 
-print(game.get_masked_word())
-print(game.get_status())
+# print(game.get_masked_word())
+# print(game.get_status())
